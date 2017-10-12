@@ -43,11 +43,11 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 // });
 
 
-db.collection('Users').find({name: 'Jacob Brendan McCarthy'}).toArray().then((docs) => {
-  console.log(JSON.stringify(docs, undefined, 2))
-}, (err) => {
-  console.log(err)
-});
+// db.collection('Users').find({name: 'Jacob Brendan McCarthy'}).toArray().then((docs) => {
+//   console.log(JSON.stringify(docs, undefined, 2))
+// }, (err) => {
+//   console.log(err)
+// });
 
 
 
