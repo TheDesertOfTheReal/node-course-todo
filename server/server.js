@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 
 var {mongoose} = require('./db/mongoose.js');
 var {User} = require('./models/user.js');
-var {Todo} = require('./models/Todo.js');
+var {Todo} = require('./models/todo.js');
 
 
 //////////////////////////////
@@ -32,10 +32,8 @@ app.post('/todos', (req, res) => {
 
   todo.save().then((doc) => {
     res.send(doc);
-    console.log('Successfully saved to database', doc);
   }, (err) => {
     res.status(400).send(err);
-    console.log(err);
   });
 });
 
@@ -50,3 +48,6 @@ app.post('/todos', (req, res) => {
 app.listen(3000, () => {
   console.log('Server is up and running!')
 })
+
+
+module.exports = {app};
