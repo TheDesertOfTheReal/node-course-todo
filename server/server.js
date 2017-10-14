@@ -1,5 +1,6 @@
 var express = require('express');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var {ObjectID} = require('mongodb');
 
 
 var {mongoose} = require('./db/mongoose.js');
@@ -19,7 +20,7 @@ app.use(bodyParser.json());
 // ROUTES
 //////////////////////////////
 
-
+// INDEX
 app.get('/todos', (req, res) => {
   Todo.find().then((todos) => {
     res.send({todos});
@@ -29,6 +30,7 @@ app.get('/todos', (req, res) => {
 });
 
 
+// CREATE
 app.post('/todos', (req, res) => {
   var todo = new Todo({
     text: req.body.text
@@ -38,6 +40,25 @@ app.post('/todos', (req, res) => {
     res.send(doc);
   }, (err) => {
     res.status(400).send(err);
+  });
+});
+
+
+// SHOW
+app.get('/todos/:id', (req, res) => {
+  var id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(400).send('Bad Request: Invalid ID');
+  }
+
+  Todo.findById(id).then((todo) => {
+    if (!todo) {
+      return res.status(404).send('Could not find todo');
+    }
+    res.send({todo})
+  }).catch((e) => {
+    res.status(400).send();
   });
 });
 
