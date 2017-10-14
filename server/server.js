@@ -21,7 +21,11 @@ app.use(bodyParser.json());
 
 
 app.get('/todos', (req, res) => {
-  res.send('this will a get route for a resource page called todos')
+  Todo.find().then((todos) => {
+    res.send({todos});
+  }, (err) => {
+    res.status(400).send(err)
+  });
 });
 
 
